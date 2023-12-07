@@ -129,7 +129,7 @@ class Kits:
 #--------------------------------------------------------------------
 # Crear una instancia de la clase Kits
 #kits = Kits(host='localhost', user='root', password='root', database='productos')
-kits = Kits(host='PaolaCantero18.mysql.pythonanywhere-services.com', user='PaolaCantero18', password='Jiuasgsvb2356', database='PaolaCantero18$productos')
+kits = Kits(host='RogerLopesierra1.mysql.pythonanywhere-services.com', user='RogerLopesierra1', password='root12345@', database='RogerLopesierra1$productos')
 
 # kits.agregar_producto(1, "Televisor 25",11, 340000, "tele.jpg",1)
 # kits.agregar_producto(2, "Notebook",11, 740000, "compu.jpg",1)
@@ -140,7 +140,7 @@ kits = Kits(host='PaolaCantero18.mysql.pythonanywhere-services.com', user='Paola
 #RUTA_DESTINO = './static/imagenes/'
 
 #Al subir al servidor, deberá utilizarse la siguiente ruta. USUARIO debe ser reemplazado por el nombre de usuario de Pythonanywhere
-RUTA_DESTINO = '/home/PaolaCantero18/mysite/static/imagenes'
+RUTA_DESTINO = '/home/RogerLopesierra1/mysite/static/imagenes'
 
 
 #--------------------------------------------------------------------
