@@ -11,17 +11,18 @@
 
 <body>
     <div class="container-titulo">
-        <h1 class="titulo-general">Pentakits</h1>
+        <img src="static/imagenes/logo.png" alt="logo-pentakits">
         <h3>Administrador</h3>
+
     </div>
- 
+
     <div class="nav">
         <ul>
             <li><a href="altas.html">Agregar Producto</a></li>
-            <!--<li><a href="listado.html">Listado de productos</a></li>--> 
+            <li><a href="listado.html">Listado de productos</a></li>
             <li><a href="modificaciones.html">Modificar datos de productos</a></li>
             <li><a href="listadoEliminar.html">Eliminar productos</a></li>
-            <li><a href="index.html">Listado productos</a></li>
+            
         </ul>
     </div>
 
@@ -38,10 +39,10 @@
         <div v-if="mostrarDatosProducto">
             <h2>Datos del Producto</h2>
             <form @submit.prevent="guardarCambios">
-                
+
                 <label for="tituloModificar">Titulo:</label>
                 <input type="text" id="tituloModificar" v-model="titulo" required><br>
-                
+
                 <label for="descripcionModificar">Descripción:</label>
                 <input type="text" id="descripcionModificar" v-model="descripcion" required><br>
 
@@ -54,11 +55,12 @@
                 <!-- Imagen actual del producto -->
                 <!--<img v-if="imagen_url && !imagenSeleccionada" :src="'./static/imagenes/' + imagen_url"
                     alt="Imagen del producto" style="max-width: 200px;">-->
-                
+
                 <!-- Al subir al servidor, deberá utilizarse la siguiente ruta. USUARIO debe ser reemplazado por el nombre de usuario de Pythonanywhere -->
-                <img v-if="imagen && !imagenSeleccionada" :src="'https://www.pythonanywhere.com/user/RogerLopesierra1/files/home/RogerLopesierra1/mysite/static/imagenes/' + imagen"
+                <img v-if="imagen && !imagenSeleccionada"
+                    :src="'https://www.pythonanywhere.com/user/PaolaCantero18/files/home/PaolaCantero18/mysite/static/imagenes/' + imagen"
                     alt="Imagen del producto" style="max-width: 200px;">
-                             
+
 
                 <!-- Vista previa de la nueva imagen seleccionada -->
                 <img v-if="imagenSeleccionada" :src="imagenUrlTemp" alt="Vista previa de la nueva imagen"
@@ -83,12 +85,12 @@
         //const URL = "http://127.0.0.1:5000/"
 
         //Al subir al servidor, deberá utilizarse la siguiente ruta. USUARIO debe ser reemplazado por el nombre de usuario de Pythonanywhere
-        const URL = "https://RogerLopesierra1.pythonanywhere.com/"
-        
+        const URL = "https://PaolaCantero18.pythonanywhere.com/"
+
 
         //Vue.createApp para crear nuestra aplicación Vue.
         const app = Vue.createApp({
-            
+
             //La función data devuelve un objeto que contiene las siguientes propiedades: 
             data() {
                 return {
@@ -97,8 +99,8 @@
                     descripcion: '',
                     descripcion_detallada: '',
                     precio: '',
-                    nivel: '',
                     imagen: '',
+                    nivel: '',
                     imagenSeleccionada: null,
                     imagenUrlTemp: null,
                     mostrarDatosProducto: false, //mostrarDatosProducto para controlar la visibilidad del formulario de modificación.
@@ -109,10 +111,10 @@
                 //Se ejecuta cuando se envía el formulario de consulta. En este método, utilizamos fetch para realizar una solicitud GET a la API y obtener los datos del producto correspondiente al código ingresado.
                 obtenerProducto() {
                     fetch(URL + 'productos/' + this.codigo)
-                    //Realiza una solicitud de red al servidor para obtener los datos del producto. Usa la URL definida anteriormente y añade 'productos/' seguido del código del producto.
-                        
+                        //Realiza una solicitud de red al servidor para obtener los datos del producto. Usa la URL definida anteriormente y añade 'productos/' seguido del código del producto.
+
                         //Verificamos si la respuesta de la solicitud es exitosa (código de respuesta 200-299). 
-                        .then(response =>  {
+                        .then(response => {
                             //Si es así, utilizamos response.json() para parsear la respuesta en formato JSON.
                             if (response.ok) {
                                 return response.json() //Una vez que la respuesta llega del servidor, se convierte de formato JSON a un objeto JavaScript.
@@ -123,13 +125,13 @@
                         })
 
                         //En este bloque, se asignan los datos obtenidos a las variables correspondientes de la aplicación Vue.
-                        .then(data => {                            
+                        .then(data => {
                             this.titulo = data.titulo;
                             this.descripcion = data.descripcion;
                             this.descripcion_detallada = data.descripcion_detallada;
                             this.precio = data.precio;
                             this.nivel = data.nivel;
-                            this.imagen =  data.imagen;
+                            this.imagen = data.imagen;
                             this.mostrarDatosProducto = true;
                         })
 
@@ -185,7 +187,7 @@
                         // En caso de error, mostramos una alerta con un mensaje de error.
                         .catch(error => {
                             console.error('Error:', error);
-                            alert('Error al actualizar el producto.');
+                            alert('Error al actualizar el producto bbbbb.');
                         });
                 },
 
@@ -211,4 +213,5 @@
     </script>
 
 </body>
+
 </html>

@@ -10,18 +10,20 @@
 </head>
 
 <body>
+
     <div class="container-titulo">
-        <h1 class="titulo-general">Pentakits</h1>
+        <img src="static/imagenes/logo.png" alt="logo-pentakits">
         <h3>Administrador</h3>
+
     </div>
- 
+
     <div class="nav">
         <ul>
             <li><a href="altas.html">Agregar Producto</a></li>
-            <!--<li><a href="listado.html">Listado de productos</a></li>--> 
+            <li><a href="listado.html">Listado de productos</a></li>
             <li><a href="modificaciones.html">Modificar datos de productos</a></li>
             <li><a href="listadoEliminar.html">Eliminar productos</a></li>
-            <li><a href="index.html">Listado productos</a></li>
+            
         </ul>
     </div>
 
@@ -30,14 +32,14 @@
         <label for="codigo">Código:</label>
         <input type="number" id="codigo" name="codigo" required><br>
 
-        <label for="titulo">titulo:</label>
+        <label for="titulo">Titulo:</label>
         <input type="text" id="titulo" name="titulo" required><br>
 
         <label for="descripcion">Descripción:</label>
         <input type="text" id="descripcion" name="descripcion" required><br>
 
         <label for="descripcion_detallada">Descripción Detallada:</label>
-        <input type="text" id="descripcion_detallada" name="descripcion_detallada" required><br>      
+        <input type="text" id="descripcion_detallada" name="descripcion_detallada" required><br>
 
         <label for="precio">Precio:</label>
         <input type="number" step="0.01" id="precio" name="precio" required><br>
@@ -48,7 +50,7 @@
         <br><br>
         <label for="nivel">Nivel:</label>
         <input type="number" id="nivel" name="nivel">
-        
+
         <button type="submit">Agregar Producto</button>
     </form>
 
@@ -56,8 +58,8 @@
         //const URL = "http://127.0.0.1:5000/"
 
         //Al subir al servidor, deberá utilizarse la siguiente ruta. USUARIO debe ser reemplazado por el nombre de usuario de Pythonanywhere
-        const URL = "https://RogerLopesierra1.pythonanywhere.com/"
-        
+        const URL = "https://PaolaCantero18.pythonanywhere.com/"
+
 
         // Capturamos el evento de envío del formulario
         document.getElementById('formulario').addEventListener('submit', function (event) {
@@ -71,7 +73,7 @@
             formData.append('precio', document.getElementById('precio').value);
             formData.append('imagen', document.getElementById('imagenProducto').files[0]);
             formData.append('nivel', document.getElementById('nivel').value);
-            
+
             // Realizamos la solicitud POST al servidor. El método POST se usa para enviar y crear nuevos datos en el servidor.
             fetch(URL + 'productos', {
                 method: 'POST',
@@ -80,9 +82,9 @@
 
                 //Después de realizar la solicitud POST, se utiliza el método then() para manejar la respuesta del servidor.
                 .then(function (response) {
-                    if (response.ok) { 
+                    if (response.ok) {
                         //Si la respuesta es exitosa, convierte los datos de la respuesta a formato JSON.
-                        return response.json(); 
+                        return response.json();
                     } else {
                         // Si hubo un error, lanzar explícitamente una excepción
                         // para ser "catcheada" más adelante
@@ -97,7 +99,7 @@
 
                 // En caso de error, mostramos una alerta con un mensaje de error.
                 .catch(function (error) {
-                    alert('Error al agregar el producto.');
+                    alert('Error al agregar producto**.');
                 })
 
                 // Limpiar el formulario en ambos casos (éxito o error)

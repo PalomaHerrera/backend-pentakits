@@ -60,30 +60,30 @@ class Kits:
         # Cerrar el cursor inicial y abrir uno nuevo con el parámetro dictionary=True
         self.cursor.close()
         self.cursor = self.conn.cursor(dictionary=True)
-    
+
     #----------------------------------------------------------------
     def consultar_producto(self, codigo):
         # Consultamos un producto a partir de su código
         self.cursor.execute(f"SELECT * FROM productos WHERE codigo = {codigo}")
         return self.cursor.fetchone()
-        
+
     #----------------------------------------------------------------
     def agregar_producto(self, codigo, titulo, descripcion, descripcion_detallada, precio, imagen, nivel):
         # Verificamos si ya existe un producto con el mismo código
-        
+
         producto_existe = self.consultar_producto(codigo)
         if producto_existe:
             return False
 
-        
+
         sql = "INSERT INTO productos (codigo, titulo, descripcion, descripcion_detallada, precio, imagen, nivel) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         valores = (codigo, titulo, descripcion, descripcion_detallada, precio, imagen, nivel)
 
-        self.cursor.execute(sql, valores)        
+        self.cursor.execute(sql, valores)
         self.conn.commit()
         return True
 
-    
+
 
     #----------------------------------------------------------------
     def modificar_producto(self, codigo, new_titulo, new_descripcion, new_descripcion_detallada, new_precio, new_imagen, new_nivel):
@@ -108,7 +108,7 @@ class Kits:
 
     #----------------------------------------------------------------
     def mostrar_producto(self, codigo):
-        # Mostramos los datos de un producto a partir de su código        
+        # Mostramos los datos de un producto a partir de su código
         producto = self.consultar_producto(codigo)
         if producto:
             print("-" * 40)
@@ -129,7 +129,7 @@ class Kits:
 #--------------------------------------------------------------------
 # Crear una instancia de la clase Kits
 #kits = Kits(host='localhost', user='root', password='root', database='productos')
-kits = Kits(host='RogerLopesierra1.mysql.pythonanywhere-services.com', user='RogerLopesierra1', password='root12345@', database='RogerLopesierra1$productos')
+kits = Kits(host='PaolaCantero18.mysql.pythonanywhere-services.com', user='PaolaCantero18', password='Jiuasgsvb2356', database='PaolaCantero18$productos')
 
 # kits.agregar_producto(1, "Televisor 25",11, 340000, "tele.jpg",1)
 # kits.agregar_producto(2, "Notebook",11, 740000, "compu.jpg",1)
@@ -140,7 +140,7 @@ kits = Kits(host='RogerLopesierra1.mysql.pythonanywhere-services.com', user='Rog
 #RUTA_DESTINO = './static/imagenes/'
 
 #Al subir al servidor, deberá utilizarse la siguiente ruta. USUARIO debe ser reemplazado por el nombre de usuario de Pythonanywhere
-RUTA_DESTINO = '/home/RogerLopesierra1/mysite/static/imagenes'
+RUTA_DESTINO = '/home/PaolaCantero18/mysite/static/imagenes'
 
 
 #--------------------------------------------------------------------
@@ -175,14 +175,14 @@ def mostrar_producto(codigo):
 #La ruta Flask `/productos` con el método HTTP POST está diseñada para permitir la adición de un nuevo producto a la base de datos.
 #La función agregar_producto se asocia con esta URL y es llamada cuando se hace una solicitud POST a /productos.
 def agregar_producto():
-    #Recojo los datos del form    
+    #Recojo los datos del form
     codigo = request.form['codigo']
     titulo = request.form['titulo']
     descripcion = request.form['descripcion']
     descripcion_detallada = request.form['descripcion_detallada']
     precio = request.form['precio']
     imagen = request.files['imagen']
-    nivel = request.form['nivel']  
+    nivel = request.form['nivel']
     nombre_imagen=""
 
     # Me aseguro que el producto exista
@@ -192,7 +192,7 @@ def agregar_producto():
         nombre_imagen = secure_filename(imagen.filename) #Chequea el nombre del archivo de la imagen, asegurándose de que sea seguro para guardar en el sistema de archivos
         nombre_base, extension = os.path.splitext(nombre_imagen) #Separa el nombre del archivo de su extensión.
         nombre_imagen = f"{nombre_base}_{int(time.time())}{extension}" #Genera un nuevo nombre para la imagen usando un timestamp, para evitar sobreescrituras y conflictos de nombres.
-        
+
         #Se agrega el producto a la base de datos
         if  kits.agregar_producto(codigo, titulo, descripcion, descripcion_detallada, precio, nombre_imagen, nivel):
             imagen.save(os.path.join(RUTA_DESTINO, nombre_imagen))
@@ -206,7 +206,7 @@ def agregar_producto():
     else:
         #Si el producto ya existe (basado en el código), se devuelve una respuesta JSON con un mensaje de error y un código de estado HTTP 400 (Solicitud Incorrecta).
         return jsonify({"mensaje": "Producto ya existe."}), 400
-    
+
 
 #--------------------------------------------------------------------
 # Modificar un producto según su código
@@ -239,7 +239,7 @@ def modificar_producto(codigo):
         # Y si existe la borro.
         if os.path.exists(ruta_imagen):
             os.remove(ruta_imagen)
-    
+
     # Se llama al método modificar_producto pasando el codigo del producto y los nuevos datos.
     if kits.modificar_producto(codigo, new_titulo, new_descripcion, new_descripcion_detallada, new_precio, nombre_imagen, new_nivel):
         #La imagen se guarda en el servidor.
@@ -279,7 +279,7 @@ def eliminar_producto(codigo):
             #Si ocurre un error durante la eliminación (por ejemplo, si el producto no se puede eliminar de la base de datos por alguna razón), se devuelve un mensaje de error con un código de estado HTTP 500 (Error Interno del Servidor).
             return jsonify({"mensaje": "Error al eliminar el producto"}), 500
     else:
-        #Si el producto no se encuentra (por ejemplo, si no existe un producto con el codigo proporcionado), se devuelve un mensaje de error con un código de estado HTTP 404 (No Encontrado). 
+        #Si el producto no se encuentra (por ejemplo, si no existe un producto con el codigo proporcionado), se devuelve un mensaje de error con un código de estado HTTP 404 (No Encontrado).
         return jsonify({"mensaje": "Producto no encontrado"}), 404
 
 #--------------------------------------------------------------------
